@@ -33,6 +33,25 @@ becomes: `[\"SELECT * FROM person WHERE \" age \" > age\"]`"
     "?"
     (clojure.string/join "," (repeat (count args) "?"))))
 
+(defmulti append-args
+  "User-influenceable way to append args."
+  (fn [final-args args-head]
+    (class args-head)))
+
+(defmethod append-args java.util.Map
+  [final-args args-head]
+  (conj final-args args-head))
+
+(defmethod append-args clojure.lang.IPersistentCollection
+  [final-args args-head]
+  (apply conj final-args args-head))
+
+(defmethod append-args :default
+  [final-args args-head]
+  (conj final-args args-head))
+
+(prefer-method append-args java.util.Map clojure.lang.IPersistentCollection)
+
 (defn reassemble-query
   "Given a query that's been split into text-and-symbols, and some arguments, reassemble
 it as the pair `[string-with-?-parameters args]`, suitable for supply to `clojure.java.jdbc`."
@@ -51,8 +70,6 @@ it as the pair `[string-with-?-parameters args]`, suitable for supply to `clojur
                                  query-tail
                                  remaining-args)
      (symbol? query-head) (recur (str query-string (args-to-placehoders args-head))
-                                 (if (coll? args-head)
-                                   (apply conj final-args args-head)
-                                   (conj final-args args-head))
+                                 (append-args final-args args-head)
                                  query-tail
                                  args-tail))))
