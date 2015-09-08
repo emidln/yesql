@@ -1,6 +1,6 @@
-(defproject yesql "0.4.2"
-  :description "A Clojure library for using SQL"
-  :url "https://github.com/krisajenkins/yesql"
+(defproject com.emidln/yesql "0.4.3-SNAPSHOT"
+  :description "(fork) A Clojure library for using SQL"
+  :url "https://github.com/emidln/yesql"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.6.0"]
