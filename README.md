@@ -1,5 +1,7 @@
 # Yesql - Clojure & SQL rethought.
 
+This is a fork of `krisajenkins/yesql`. You can assume all bugs are mine.
+
 Yesql is a Clojure library for _using_ SQL.
 
 [![Build Status](https://travis-ci.org/krisajenkins/yesql.png?branch=travis)](https://travis-ci.org/krisajenkins/yesql)
@@ -9,7 +11,7 @@ Yesql is a Clojure library for _using_ SQL.
 Add this to your [Leiningen](https://github.com/technomancy/leiningen) `:dependencies`:
 
 ``` clojure
-[yesql "0.4.2"]
+[com.emidln/yesql "0.4.3"]
 ```
 
 Plus you'll want a database driver. Here are some examples (but double
